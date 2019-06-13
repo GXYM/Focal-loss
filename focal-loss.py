@@ -17,13 +17,11 @@ class FocalLoss(object):
         """Compute focal loss for predictions.
                 Multi-labels Focal loss formula:
                     FL = -alpha * (z-p)^gamma * log(p) -(1-alpha) * p^gamma * log(1-p)
-                         ,which alpha = 0.25, gamma = 2, p = sigmoid(x), z = target_tensor.
+                         ,which alpha = 0.25, gamma = 2, p = sigmoid(x), z = labels.
             Args:
-             logits: A float tensor of shape [batch_size, num_anchors,
-                num_classes] representing the predicted logits for each class
-             labels: A float tensor of shape [batch_size, num_anchors,
-                num_classes] representing one-hot encoded classification targets
-             weights: A float tensor of shape [batch_size, num_anchors]
+             logits: A float tensor of shape [batch_size,num_classes]
+             labels: A float tensor of shape [batch_size,num_classes]
+             weights: A float tensor of shape [batch_size, num_classes]
             Returns:
                 loss: A (scalar) tensor representing the value of the loss function
         """
@@ -44,6 +42,7 @@ class FocalLoss(object):
             loss = tf.reduce_sum(fl_loss)
 
         return loss
+
 
 
 
